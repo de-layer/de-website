@@ -13,6 +13,7 @@ const Footer = () => {
                         <p className="text-[16px] uppercase">Contact Addresses</p>
                         <div className="flex flex-col text-sm">
                             <p className="uppercase break-all"><span className="text-white/50">ETH</span> 0xd849882983f1ba8a3c23b16b65bb0173a7f63b63</p>
+                            <p className="uppercase break-all"><span className="text-white/50">ARBITRUM ONE</span> 0x95d486af638a6972f9c0be2c29d281e404acb08a</p>
                             <p className="uppercase break-all"><span className="text-white/50">BASE</span> 0x95d486af638a6972f9c0be2c29d281e404acb08a</p>
                         </div>
                         <div className="flex flex-row space-x-4">
