@@ -11,9 +11,9 @@ const mainnetAdapter = {
   abi: AdapterInfo.abi
 } as const;
 
-export const baseBridgedTokenAddress = "0x95d486af638a6972f9c0be2c29d281e404acb08a";
-const baseBridgedToken = {
-  address: baseBridgedTokenAddress,
+export const bridgedTokenAddress = "0x95d486af638a6972f9c0be2c29d281e404acb08a";
+const bridgedToken = {
+  address: bridgedTokenAddress,
   abi: BridgedInfo.abi
 } as const;
 
@@ -23,7 +23,23 @@ const mainnetToken = {
   abi: erc20Abi
 } as const;
 
-export type ChainName = "eth" | "base";
+export type ChainName = "eth" | "base" | "arbitrumOne";
+
+function getChainId(chain: ChainName) {
+  switch (chain) {
+    case "eth": return 1;
+    case "base": return 8453;
+    case "arbitrumOne": return 42161;
+  }
+}
+
+function getEid(chain: ChainName) {
+  switch (chain) {
+    case "eth": return 30101;
+    case "base": return 30184;
+    case "arbitrumOne": return 30110;
+  }
+}
 
 export function useSwitchChainApp(targetChain: ChainName) {
   const chainId = useChainId();
@@ -31,7 +47,7 @@ export function useSwitchChainApp(targetChain: ChainName) {
   const { switchChainAsync, chains, switchChain } = useSwitchChain();
 
   return useCallback(() => {
-    const targetId = targetChain === "eth" ? 1 : 8453;
+    const targetId = getChainId(targetChain);
 
     if (targetId !== chainId || targetId !== accChainId) {
       if (!chains.find(c => c.id === targetId)) {
@@ -53,7 +69,7 @@ export function useSwitchChainApp(targetChain: ChainName) {
 
 export function useBalance(chain: ChainName) {
   const { address } = useAccount();
-  const contract = (chain === "eth" ? mainnetToken : baseBridgedToken) as typeof baseBridgedToken;
+  const contract = (chain === "eth" ? mainnetToken : bridgedToken) as typeof bridgedToken;
 
   const { data } = useReadContract({
     ...contract,
@@ -64,11 +80,11 @@ export function useBalance(chain: ChainName) {
   return typeof data === "bigint" ? data : 0n;
 }
 
-export function useSend(from: ChainName, address: string | undefined = "", amount: bigint | undefined) {
+export function useSend(from: ChainName, to: ChainName, address: string | undefined = "", amount: bigint | undefined) {
   const { contract, sendOptions, readArgs } = useMemo(() => {
-    const contract = from === "eth" ? mainnetAdapter : baseBridgedToken;
+    const contract = from === "eth" ? mainnetAdapter : bridgedToken;
     const opts = {
-      dstEid: from === "eth" ? 30184 : 30101,
+      dstEid: getEid(to),
       to: `0x${address.replace("0x", "").padStart(64, "0")}`,
       amountLD: amount,
       minAmountLD: amount,
@@ -82,7 +98,7 @@ export function useSend(from: ChainName, address: string | undefined = "", amoun
       sendOptions: opts,
       readArgs: [opts, false]
     };
-  }, [from, address, amount]);
+  }, [from, address, amount, to]);
 
   const estimate = useReadContract({
     ...contract,

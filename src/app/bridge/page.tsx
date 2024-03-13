@@ -9,6 +9,7 @@ import Photo from "../../../public/assets/landing/photo.png";
 
 export default function BridgePage() {
   const [from, setFrom] = useState<ChainName>("eth");
+  const [to, setTo] = useState<ChainName>("arbitrumOne");
   const [amountText, setAmountText] = useState<string>("2000");
   const [amount, setAmount] = useState<bigint>(() => parseEther("2000"));
   const [tx, setTx] = useState<string | null>(null);
@@ -27,7 +28,7 @@ export default function BridgePage() {
   const { open } = useWeb3Modal();
   const { address, isConnected } = useAccount();
   const switchChain = useSwitchChainApp(from);
-  const send = useSend(from, address, amount);
+  const send = useSend(from, to, address, amount);
 
   const action = async () => {
     setLoading(true);
@@ -36,6 +37,11 @@ export default function BridgePage() {
     try {
       if (!address || !isConnected) {
         await open();
+        return;
+      }
+
+      if (from === to) {
+        alert("You cannot bridge to the same chain");
         return;
       }
 
@@ -77,20 +83,22 @@ export default function BridgePage() {
                 onChange={e => setFrom(e.target.value as ChainName)}
                 className="mb-4 text-black w-40"
               >
-                <option value="eth">Ethereum</option>
-                <option value="base">Base Chain</option>
+                <option value="eth" disabled={to === "eth"}>Ethereum</option>
+                <option value="base" disabled={to === "base"}>Base Chain</option>
+                <option value="arbitrumOne" disabled={to === "arbitrumOne"}>Arbitrum</option>
               </select>
             </label>
 
             <label className="flex flex-row gap-2 items-start justify-start w-full">
               <span className="w-16">To:</span>
               <select
-                value={from === "eth" ? "base" : "eth"}
+                value={to}
+                onChange={e => setTo(e.target.value as ChainName)}
                 className="mb-4 text-black w-40"
-                disabled
               >
-                <option value="eth">Ethereum</option>
-                <option value="base">Base Chain</option>
+                <option value="eth" disabled={from === "eth"}>Ethereum</option>
+                <option value="base" disabled={from === "base"}>Base Chain</option>
+                <option value="arbitrumOne" disabled={from === "arbitrumOne"}>Arbitrum</option>
               </select>
             </label>
 
