@@ -1,7 +1,7 @@
 "use server";
 import "server-only";
 import { Chain, createPublicClient, createWalletClient, erc20Abi, getContract, http, isAddress, parseEther } from "viem";
-import { arbitrum, mainnet } from "viem/chains";
+import { arbitrum, base, mainnet } from "viem/chains";
 import { ChainName, bridgedTokenAddress, mainnetTokenAddress } from "./bridge";
 import { daozang } from "./testnet";
 import { privateKeyToAccount } from "viem/accounts";
@@ -16,7 +16,7 @@ type FaucetFormState = {
 function getPublicClient(chain: ChainName) {
   let chainConfig: Chain = mainnet;
   if (chain === "arbitrumOne") chainConfig = arbitrum;
-  else if (chain === "base") chainConfig = arbitrum;
+  else if (chain === "base") chainConfig = base;
 
   return createPublicClient({
     chain: chainConfig,
