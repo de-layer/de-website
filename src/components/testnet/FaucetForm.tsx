@@ -3,7 +3,8 @@ import { faucetAction } from "@/util/faucet";
 import { useFormState, useFormStatus } from "react-dom";
 
 const initialState = {
-  message: ""
+  message: "",
+  tx: "",
 };
 
 export default function FaucetForm() {
@@ -11,11 +12,23 @@ export default function FaucetForm() {
 
   return (
     <form className="w-full flex flex-col gap-2 items-start justify-start mt-auto" action={formAction}>
-      {'error' in state ? (
-        <p className="w-full text-red-500 break-words">{state.error}</p>
-      ) : 'message' in state ? (
-        <p className="w-full text-green-500 break-words">{state.message}</p>
-      ) : null}
+      <div className="w-full flex flex-col">
+        {'error' in state ? (
+          <p className="w-full text-red-500 break-words">{state.error}</p>
+        ) : 'message' in state ? (
+          <p className="w-full text-green-500 break-words">{state.message}</p>
+        ) : null}
+
+        {'tx' in state && !!state.tx && (
+          <a
+            rel="noreferrer"
+            target="_blank"
+            className="break-words underline cursor-pointer"
+            href={`https://daozang-explorer.delayer.network/#/transaction/${state.tx}`}
+          >View transaction in explorer</a>
+        )}
+      </div>
+
       <FaucetFormInner />
     </form>
   );

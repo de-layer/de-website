@@ -9,6 +9,7 @@ import { getBalance, waitForTransactionReceipt } from "viem/actions";
 
 type FaucetFormState = {
   message: string;
+  tx: string;
 } | {
   error: string;
 };
@@ -90,7 +91,7 @@ export async function faucetAction(_currentState: FaucetFormState, formData: For
   try {
     const tx = await sendTestnetTokens(address);
 
-    return { message: "Tokens sent successfully. Transaction hash: " + tx };
+    return { message: "Tokens sent successfully", tx };
   } catch (e) {
     console.error(e);
     return { error: "An error occurred while sending tokens" };
