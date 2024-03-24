@@ -49,7 +49,7 @@ const Navbar = () => {
                         <a target="_blank" rel="noreferrer" href="https://www.dextools.io/app/en/ether/pair-explorer/0xe2baaa8eefc273ad8c126d0ec40cb6059cdc12a1?t=1710079015737">
                             LIVE CHART
                         </a>
-                        <Link className="bg-accent mx-auto w-[144px] h-[27px] duration-200 text-secondary justify-center items-center flex flex-col" href="/bridge">
+                        <Link className="bg-accent mx-auto w-[144px] h-[27px] duration-200 text-secondary justify-center items-center flex flex-col" href="/dapp">
                             LAUNCH APP
                         </Link>
                     </div>
@@ -83,7 +83,7 @@ const Navbar = () => {
                         >
                             LIVE CHART
                         </a>
-                        <Link className="bg-accent mx-auto w-[270px] h-[70px] md:w-[144px] md:h-[27px] duration-200 text-secondary flex flex-col items-center justify-center" href="/bridge">
+                        <Link className="bg-accent mx-auto w-[270px] h-[70px] md:w-[144px] md:h-[27px] duration-200 text-secondary flex flex-col items-center justify-center" href="/dapp">
                             LAUNCH APP
                         </Link>
                     </div>

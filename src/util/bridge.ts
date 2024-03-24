@@ -25,7 +25,7 @@ const mainnetToken = {
 
 export type ChainName = "eth" | "base" | "arbitrumOne";
 
-function getChainId(chain: ChainName) {
+export function getChainId(chain: ChainName) {
   switch (chain) {
     case "eth": return 1;
     case "base": return 8453;

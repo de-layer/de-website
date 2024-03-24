@@ -1,6 +1,7 @@
 import { defaultWagmiConfig } from "@web3modal/wagmi/react/config";
 import { cookieStorage, createStorage } from "wagmi";
 import { arbitrum, base, mainnet } from "wagmi/chains";
+import { daozang } from "./testnet";
 
 export const projectId = process.env.NEXT_PUBLIC_WAGMI_PROJECT_ID as string;
 
@@ -11,7 +12,7 @@ const metadata = {
   icons: ['https://delayer.network/favicon.ico']
 };
 
-const chains = [mainnet, base, arbitrum] as const;
+const chains = [mainnet, base, arbitrum, daozang] as const;
 const config = defaultWagmiConfig({
   chains,
   projectId,

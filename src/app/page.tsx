@@ -50,9 +50,10 @@ const CountdownTimer = ({ targetDate }: any) => {
   );
 };
 
+const initialDate = new Date('2024-03-10T22:00:00-00:00');
+const futureDate = new Date(initialDate.getTime() + 14 * 24 * 60 * 60 * 1000);
+
 export default function Home() {
-  const initialDate = new Date('2024-03-10T22:00:00-00:00');
-  const futureDate = new Date(initialDate.getTime() + 14 * 24 * 60 * 60 * 1000);
   return (
     <main className="flex flex-col items-center font-nova overflow-hidden">
       <div className="h-screen flex flex-col items-center jusitfy-center bg-primary w-full relative">
@@ -88,7 +89,7 @@ export default function Home() {
               </a>
               <img alt="coinmarketcap" src={CMC.src} className="max-w-[20px] cursor-not-allowed opacity-50" />
             </div>
-            <CountdownTimer targetDate={futureDate} />
+            {/* <CountdownTimer targetDate={futureDate} /> */}
           </div>
         </div>
       </div>
