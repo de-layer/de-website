@@ -55,7 +55,7 @@ const futureDate = new Date(initialDate.getTime() + 14 * 24 * 60 * 60 * 1000);
 
 export default function Home() {
   return (
-    <main className="flex flex-col items-center font-nova overflow-hidden">
+    <main className="flex flex-col items-center font-nova overflow-hidden bg-white">
       <div className="h-screen flex flex-col items-center jusitfy-center bg-primary w-full relative">
         <img alt="" src={Photo.src} className="h-full absolute w-[2600px] z-10 object-cover" />
         <Navbar />

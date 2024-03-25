@@ -12,13 +12,13 @@ export default function TestnetPage() {
         The Daozang Testnet is the first step towards building the De Layer ecosystem.
       </p>
 
-      <p>
+      <p className="mb-4">
         In the initial phase, the testnet will be used by the developers to test the integration of Bittensor and EVM,
         and ensure that the network is secure and stable.
       </p>
 
 
-      <p className="mt-4">
+      <p className="mt-auto">
         To add the testnet to your wallet, click:
       </p>
       <AddChainButton />
