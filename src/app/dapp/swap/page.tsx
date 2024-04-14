@@ -9,17 +9,13 @@ import { wtDEAIAddress } from "@/util/swap/swapContracts";
 import { daozang } from "@/util/testnet";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
 import type { NextPage } from 'next';
-import { useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { FaChevronDown } from 'react-icons/fa';
 import { HiOutlineSwitchVertical } from "react-icons/hi";
-import { formatUnits, isAddress, parseUnits } from "viem";
+import { formatUnits, parseUnits } from "viem";
 import { useAccount, useBalance, useToken } from "wagmi";
 
 const SwapPage: NextPage = () => {
-  const searchParams = useSearchParams();
-  const wasLoaded = useRef(false);
-
   const { open } = useWeb3Modal();
   const { address, isConnected } = useAccount();
 
@@ -27,15 +23,6 @@ const SwapPage: NextPage = () => {
   const [outputToken, setOutputToken] = useState("0x80a6127a88006Dc9997f3A42E115c4128aC34031");
   const [slippagePerMille, setSlippagePerMille] = useState(10); // default: 1%
   const [slippageTxt, setSlippageTxt] = useState("1");
-
-  const queryAddress = searchParams.get("address");
-
-  useEffect(() => {
-    if (wasLoaded.current || !queryAddress) return;
-    if (queryAddress && isAddress(queryAddress)) {
-      setOutputToken(queryAddress);
-    };
-  }, [queryAddress]);
 
   const [poolFee, setPoolFee] = useState(0);
 
