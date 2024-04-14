@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { PropsWithChildren } from "react";
+import { AppButton } from "@/components/AppButton";
 
 export default function DappPage() {
   return (
@@ -10,13 +9,3 @@ export default function DappPage() {
   );
 }
 
-function AppButton({ href, children }: PropsWithChildren<{ href: string; }>) {
-  return (
-    <Link
-      className="w-full rounded-lg border-white border backdrop-blur-lg text-white flex flex-col items-center justify-center px-4 py-3 text-xl"
-      href={href}
-    >
-      {children}
-    </Link>
-  );
-}
